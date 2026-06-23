@@ -1,12 +1,20 @@
 # Environment files
 .env
+.env.*
 .env.local
 .env.*.local
+!.env.example
+!.env.*.example
 
-# API keys
+# API keys / certs / private keys
 *.key
 *.pem
+*.p12
+*.pfx
+id_rsa
+id_dsa
 secrets.json
+.npmrc
 
 # OS files
 .DS_Store
@@ -27,18 +35,17 @@ private/
 
 # Session templates (not committed)
 examples/sessions/*.tmp
+
 # Codex governance: local secrets and machine state
-.env
-.env.*
-!.env.example
-!.env.*.example
-*.pem
-*.p12
-*.pfx
-id_rsa
-id_dsa
-.npmrc
-.DS_Store
-.omc/
 .codex/
 .claude/local/
+
+# OMC / Claude Code internal state files (never commit these)
+.omc/
+*-todo.md
+state.json
+state*.json
+.pipeline-state.json
+
+# Runtime-detected config (local only, differs per machine)
+.claude/package-manager.json
