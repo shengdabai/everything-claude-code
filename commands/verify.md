@@ -1,4 +1,11 @@
+---
+description: "Run comprehensive verification on current codebase state — build, type check, lint, tests with coverage, secrets and console.log audit, git status — and emit a single PASS/FAIL report."
+argument-hint: "quick | full | pre-commit | pre-pr"
+---
+
 # Verification Command
+
+If $ARGUMENTS is empty, default to `full`. If $ARGUMENTS is a known mode, scope the checks accordingly.
 
 Run comprehensive verification on current codebase state.
 
@@ -57,3 +64,9 @@ $ARGUMENTS can be:
 - `full` - All checks (default)
 - `pre-commit` - Checks relevant for commits
 - `pre-pr` - Full checks plus security scan
+
+## Error handling
+
+- If a required tool (`tsc`, linter, test runner) is missing, skip that phase and mark it `SKIPPED — tool not installed` in the report rather than failing the whole gate.
+- If build fails, halt remaining phases (per the documented "fail fast" ordering) and report the build error block.
+- If the repo is not a git checkout, skip the Git Status phase.

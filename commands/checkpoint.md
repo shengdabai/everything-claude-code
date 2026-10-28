@@ -1,4 +1,11 @@
+---
+description: "Create, verify, list, or clear named workflow checkpoints backed by git refs and logged to .claude/checkpoints.log. Used to compare test pass rate, coverage, and build status between marked points in a session."
+argument-hint: "create <name> | verify <name> | list | clear"
+---
+
 # Checkpoint Command
+
+If $ARGUMENTS is empty, default to `list` so the user sees existing checkpoints before deciding the next action.
 
 Create or verify a checkpoint in your workflow.
 
@@ -72,3 +79,24 @@ $ARGUMENTS:
 - `verify <name>` - Verify against named checkpoint
 - `list` - Show all checkpoints
 - `clear` - Remove old checkpoints (keeps last 5)
+
+## Output format
+
+```
+CHECKPOINT: <subcommand> <name>
+===============================
+Status:    [CREATED / VERIFIED / LISTED / CLEARED]
+Git SHA:   <short-sha>
+Timestamp: YYYY-MM-DD HH:MM
+Delta vs <name>:
+  Files changed:  +X / -Y
+  Tests:          +A passed / -B failed
+  Coverage:       +C% / -D%
+  Build:          [PASS / FAIL]
+```
+
+## Error handling
+
+- If the named checkpoint does not exist for `verify`, list available checkpoints and exit.
+- If the working tree is dirty during `create`, refuse to checkpoint and ask the user to commit or stash first.
+- If `.claude/checkpoints.log` does not exist, create it on first `create`.
