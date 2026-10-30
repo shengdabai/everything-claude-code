@@ -1,6 +1,29 @@
+---
+name: eval-harness
+description: Eval-driven development (EDD) framework for Claude Code sessions. Use when defining capability evals, running regression evals, computing pass@k or pass^k metrics, grading model outputs with code/model/human graders, or wiring `/eval define|check|report` workflow under `.claude/evals/`. Trigger phrases include "eval harness", "pass@3 target", "capability eval", "regression baseline".
+---
+
 # Eval Harness Skill
 
 A formal evaluation framework for Claude Code sessions, implementing eval-driven development (EDD) principles.
+
+## When to use
+
+Invoke when the task explicitly involves defining, running, or reporting evals for a feature — not for ad-hoc QA. Adjacent skills: `verification-loop` (build/type/lint/test gate), `tdd-workflow` (write tests first). Use this skill when behavior is open-ended enough that pass/fail needs a grader (code, model, or human), not a single deterministic test runner.
+
+## Examples
+
+<example>
+Context: User wants to lock down success criteria before implementing OAuth.
+user: "Set up evals for the new login feature before I start coding."
+assistant: "I'll create `.claude/evals/login.md` with capability evals (register, login happy path, invalid creds rejected, session persists, logout clears) and regression evals (public routes, existing API responses). Targets: pass@3 > 90% capability, pass^3 = 100% regression. Then we implement against that target."
+</example>
+
+<example>
+Context: User finished a refactor and wants to confirm no regressions.
+user: "Run the regression evals for the search module."
+assistant: "Running `/eval check search`. Reading `.claude/evals/search.md`, executing each capability and regression check, logging attempts to `search.log`, then producing the report with pass@1, pass@3, and pass^3 metrics."
+</example>
 
 ## Philosophy
 

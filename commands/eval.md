@@ -1,4 +1,11 @@
+---
+description: "Manage eval-driven development workflow: define, check, report, or list capability and regression evals under .claude/evals/ with pass@k and pass^k metrics."
+argument-hint: "define <name> | check <name> | report <name> | list | clean"
+---
+
 # Eval Command
+
+If $ARGUMENTS is empty, default to `list` so the user sees existing eval definitions before deciding the next action.
 
 Manage eval-driven development workflow.
 
@@ -118,3 +125,9 @@ $ARGUMENTS:
 - `report <name>` - Generate full report
 - `list` - Show all evals
 - `clean` - Remove old eval logs (keeps last 10 runs)
+
+## Error handling
+
+- If the named eval does not exist for `check` or `report`, list available evals under `.claude/evals/` and exit.
+- If `.claude/evals/` directory does not exist, create it on first `define`.
+- If a capability eval cannot be verified automatically, mark it `[HUMAN REVIEW REQUIRED]` and continue with the rest.
