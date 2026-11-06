@@ -1,8 +1,27 @@
+---
+name: project-guidelines-example
+description: Template demonstrating a project-specific guidelines skill (architecture, file structure, code patterns, testing, deployment) using a Next.js 15 + FastAPI + Supabase + Claude API stack as the worked example. Use as a copy-paste starting point when creating per-project skills. Trigger phrases include "project guidelines example", "skill template", "per-project skill template".
+---
+
 # Project Guidelines Skill (Example)
 
 This is an example of a project-specific skill. Use this as a template for your own projects.
 
 Based on a real production application: [Zenith](https://zenith.chat) - AI-powered customer discovery platform.
+
+## Examples
+
+<example>
+Context: User is starting a new project and wants a skill that captures their stack conventions.
+user: "Make me a project skill like the Zenith example for my Next.js + Supabase app."
+assistant: "I'll copy this template's structure — Architecture Overview, File Structure, Code Patterns, Testing Requirements, Deployment Workflow, Critical Rules — and fill each section with your stack's specifics. Frontmatter description must list 3+ trigger phrases unique to your project."
+</example>
+
+<example>
+Context: A new agent joins the project and needs the conventions.
+user: "Load the project guidelines for this codebase."
+assistant: "Reading this skill's Architecture Overview + Code Patterns + Critical Rules sections, then applying them to the current task (immutability, 80% coverage, no console.log, many small files under 800 lines)."
+</example>
 
 ---
 

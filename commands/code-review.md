@@ -1,4 +1,11 @@
+---
+description: "Comprehensive security and quality review of uncommitted changes, organized by severity (CRITICAL/HIGH/MEDIUM/LOW), with explicit block-on-critical policy."
+argument-hint: "[optional: file path or git ref to limit scope]"
+---
+
 # Code Review
+
+If $ARGUMENTS is empty, review all uncommitted changes (`git diff HEAD`). If $ARGUMENTS is a path or git ref, scope the review to those files only.
 
 Comprehensive security and quality review of uncommitted changes:
 
@@ -38,3 +45,27 @@ Comprehensive security and quality review of uncommitted changes:
 4. Block commit if CRITICAL or HIGH issues found
 
 Never approve code with security vulnerabilities!
+
+## Output format
+
+```
+CODE REVIEW REPORT
+==================
+Files reviewed:  X
+CRITICAL:        N issues  [BLOCKS COMMIT]
+HIGH:            N issues  [BLOCKS COMMIT]
+MEDIUM:          N issues
+LOW:             N issues
+Verdict:         [APPROVE / WARNING / BLOCK]
+
+Findings (sorted by severity):
+  [CRITICAL] file.ts:42 — <issue> → <suggested fix>
+  [HIGH]     file.ts:88 — <issue> → <suggested fix>
+  ...
+```
+
+## Error handling
+
+- If `git diff` returns nothing, report "No uncommitted changes to review" and exit cleanly.
+- If the repository is not a git checkout, report that and ask the user for a path scope.
+- If a file referenced by the diff has been deleted on disk, skip it and note "file deleted" in the report.
