@@ -1,6 +1,25 @@
+---
+name: verification-loop
+description: Run the build/type/lint/test/security/diff gate after any feature change, refactor, or before opening a PR. Use when the user says "verify", "run the verification loop", "check before PR", "make sure it's green", "run quality gates", or when a change needs systematic sign-off across all 6 phases. Trigger phrases include "verification loop", "pre-PR check", "quality gates", "ready for PR".
+---
+
 # Verification Loop Skill
 
 A comprehensive verification system for Claude Code sessions.
+
+## Examples
+
+<example>
+Context: User just finished implementing a new API endpoint.
+user: "Run the verification loop before I open a PR."
+assistant: "Executing the 6-phase loop in order: build → type check → lint → tests with coverage → secret/console.log scan → diff review. I'll report PASS/FAIL per phase and produce the consolidated verification report at the end."
+</example>
+
+<example>
+Context: Long refactor session, user wants a mid-session checkpoint.
+user: "Quick gate check — am I still green?"
+assistant: "Running the verification loop in continuous mode: build + type + lint + test pass count + diff stat. Skipping the full security scan since this is mid-session, not pre-PR. Reporting in 30 seconds."
+</example>
 
 ## When to Use
 

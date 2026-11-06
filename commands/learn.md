@@ -1,4 +1,11 @@
+---
+description: "Extract reusable patterns (error fixes, debugging techniques, workarounds, project conventions) from the current session and save as a skill under ~/.claude/skills/learned/."
+argument-hint: "[optional: pattern name hint]"
+---
+
 # /learn - Extract Reusable Patterns
+
+If $ARGUMENTS is empty, scan the full session for the most reusable insight. If $ARGUMENTS is given, use it as the suggested pattern name.
 
 Analyze the current session and extract any patterns worth saving as skills.
 
@@ -68,3 +75,20 @@ Create a skill file at `~/.claude/skills/learned/[pattern-name].md`:
 - Don't extract one-time issues (specific API outages, etc.)
 - Focus on patterns that will save time in future sessions
 - Keep skills focused - one pattern per skill
+
+## Output format
+
+```
+LEARN REPORT
+============
+Pattern name:      <descriptive-name>
+Category:          [error / debug / workaround / project]
+Skill file:        ~/.claude/skills/learned/<name>.md
+Saved:             [YES / PENDING USER CONFIRM]
+```
+
+## Error handling
+
+- If no extractable pattern is found, report "Nothing reusable in this session" and exit without writing.
+- If `~/.claude/skills/learned/` does not exist, create it before writing.
+- Never overwrite an existing learned skill — prompt the user to rename.

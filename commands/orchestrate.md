@@ -1,4 +1,11 @@
+---
+description: "Sequential agent workflow for complex tasks — feature, bugfix, refactor, security, or custom — chaining planner, tdd-guide, code-reviewer, security-reviewer, architect via structured handoff documents."
+argument-hint: "feature | bugfix | refactor | security | custom <agents> <task>"
+---
+
 # Orchestrate Command
+
+If $ARGUMENTS is empty, ask the user which workflow type to run. If $ARGUMENTS gives a workflow type but no task description, prompt for the task before dispatching agents.
 
 Sequential agent workflow for complex tasks.
 
@@ -170,3 +177,9 @@ $ARGUMENTS:
 3. **Use security-reviewer** for auth/payment/PII
 4. **Keep handoffs concise** - focus on what next agent needs
 5. **Run verification** between agents if needed
+
+## Error handling
+
+- If a required agent is missing from the registry, list installed agents and ask the user to install the missing one before continuing.
+- If an agent's handoff document is empty or malformed, halt the chain and surface the failing agent in the final report.
+- If any agent reports BLOCKED, stop the chain at that point and emit a partial report rather than continuing.
